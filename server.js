@@ -180,8 +180,6 @@ app.get("/jobs", (req, res) => {
   res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="google-site-verification" content="R8x170n9hXqCUmLGnGItcChleT5ddcOBIfBkRRaPWCk" />
-<meta name="yandex-verification" content="8d093012dfdc5601" />
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Work From Home Jobs Germany Page ${page} | ${SITE_NAME}</title>
@@ -268,7 +266,41 @@ app.get("/jobs/:id", (req, res) => {
   <meta property="og:description" content="Apply for ${job.title} at ${job.company}. ${job.salary}. Germany remote job."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="${BASE_URL}/jobs/${id}"/>
-  <script type="application/ld+json">${JSON.stringify(job.schema, null, 2)}</script>
+  <script type="application/ld+json">${(()=>{
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "JobPosting",
+      "title": job.title,
+      "description": job.description,
+      "datePosted": job.datePosted,
+      "validThrough": job.validThrough,
+      "employmentType": job.jobType,
+      "hiringOrganization": {
+        "@type": "Organization",
+        "name": job.company
+      },
+      "jobLocation": {
+        "@type": "Place",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": job.city,
+          "addressCountry": "DE"
+        }
+      },
+      "baseSalary": {
+        "@type": "MonetaryAmount",
+        "currency": "EUR",
+        "value": {
+          "@type": "QuantitativeValue",
+          "minValue": job.salaryMin,
+          "maxValue": job.salaryMax,
+          "unitText": "MONTH"
+        }
+      }
+    };
+    if(job.isRemote) schema.jobLocationType = "TELECOMMUTE";
+    return JSON.stringify(schema, null, 2);
+  })()}</script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222}
