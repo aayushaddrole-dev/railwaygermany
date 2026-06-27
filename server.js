@@ -49,8 +49,8 @@ app.get("/", (req, res) => {
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <meta name="google-site-verification" content="wSin18Y1jaEyj1vhiTPr159TKThSrMp6vyaA9K-ojOU" />
-  <meta name="yandex-verification" content="5dc49383f889928c" />
+  <meta name="google-site-verification" content="R8x170n9hXqCUmLGnGItcChleT5ddcOBIfBkRRaPWCk" />
+<meta name="yandex-verification" content="8d093012dfdc5601" />
   <title>${SITE_NAME} — Work From Home Jobs Germany 2025 | ${TOTAL_JOBS.toLocaleString()} Jobs</title>
   <meta name="description" content="Find ${TOTAL_JOBS.toLocaleString()} remote and work-from-home jobs in the Germany. Top companies hiring now — Netflix, Amazon, Google, Apple, Delta Airlines and more!"/>
   <meta name="robots" content="index,follow"/>
