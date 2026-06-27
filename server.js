@@ -180,6 +180,8 @@ app.get("/jobs", (req, res) => {
   res.send(`<!DOCTYPE html>
 <html lang="en">
 <head>
+<meta name="google-site-verification" content="R8x170n9hXqCUmLGnGItcChleT5ddcOBIfBkRRaPWCk" />
+<meta name="yandex-verification" content="8d093012dfdc5601" />
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1"/>
   <title>Work From Home Jobs Germany Page ${page} | ${SITE_NAME}</title>
