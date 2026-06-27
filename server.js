@@ -266,41 +266,48 @@ app.get("/jobs/:id", (req, res) => {
   <meta property="og:description" content="Apply for ${job.title} at ${job.company}. ${job.salary}. Germany remote job."/>
   <meta property="og:type" content="website"/>
   <meta property="og:url" content="${BASE_URL}/jobs/${id}"/>
-  <script type="application/ld+json">${(()=>{
-    const schema = {
-      "@context": "https://schema.org",
-      "@type": "JobPosting",
-      "title": job.title,
-      "description": job.description,
-      "datePosted": job.datePosted,
-      "validThrough": job.validThrough,
-      "employmentType": job.jobType,
-      "hiringOrganization": {
-        "@type": "Organization",
-        "name": job.company
-      },
-      "jobLocation": {
-        "@type": "Place",
-        "address": {
-          "@type": "PostalAddress",
-          "addressLocality": job.city,
-          "addressCountry": "DE"
-        }
-      },
-      "baseSalary": {
-        "@type": "MonetaryAmount",
-        "currency": "EUR",
-        "value": {
-          "@type": "QuantitativeValue",
-          "minValue": job.salaryMin,
-          "maxValue": job.salaryMax,
-          "unitText": "MONTH"
-        }
+  <script type="application/ld+json">${JSON.stringify({
+    "@context": "https://schema.org/",
+    "@type": "JobPosting",
+    "title": job.title,
+    "description": job.description,
+    "datePosted": job.datePosted,
+    "validThrough": job.validThrough,
+    "employmentType": job.jobType,
+    "hiringOrganization": {
+      "@type": "Organization",
+      "name": job.company,
+      "sameAs": "https://www.google.com/search?q=" + encodeURIComponent(job.company)
+    },
+    "jobLocation": {
+      "@type": "Place",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Remote Work",
+        "addressLocality": job.city,
+        "postalCode": "00000",
+        "addressCountry": "DE"
       }
-    };
-    if(job.isRemote) schema.jobLocationType = "TELECOMMUTE";
-    return JSON.stringify(schema, null, 2);
-  })()}</script>
+    },
+    "jobLocationType": "TELECOMMUTE",
+    "applicantLocationRequirements": [
+      {
+        "@type": "Country",
+        "name": "Germany",
+        "sameAs": "https://en.wikipedia.org/wiki/Germany"
+      }
+    ],
+    "baseSalary": {
+      "@type": "MonetaryAmount",
+      "currency": "EUR",
+      "value": {
+        "@type": "QuantitativeValue",
+        "minValue": job.salaryMin,
+        "maxValue": job.salaryMax,
+        "unitText": "MONTH"
+      }
+    }
+  }, null, 2)}</script>
   <style>
     *{box-sizing:border-box;margin:0;padding:0}
     body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#222}
